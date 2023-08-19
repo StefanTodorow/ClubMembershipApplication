@@ -29,5 +29,7 @@ namespace ClubMembershipApplication.Models
         public string AddressCity { get; set; }
 
         public string PostCode { get; set; }
+
+        public string EmailAddress { get; set; }
     }
 }
