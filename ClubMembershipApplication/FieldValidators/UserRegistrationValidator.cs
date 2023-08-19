@@ -1,4 +1,5 @@
-﻿using FieldValidatorAPI;
+﻿using ClubMembershipApplication.Data;
+using FieldValidatorAPI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,12 @@ namespace ClubMembershipApplication.FieldValidators
         EmailExistsDel _emailExistsDel = null;
 
         string[] _fieldArray = null;
+        IRegister _register = null;
+
+        public UserRegistrationValidator(IRegister register)
+        {
+            _register = register;
+        }
 
         public string[] FieldArray
         {
@@ -44,6 +51,7 @@ namespace ClubMembershipApplication.FieldValidators
         public void InitializeValidatorDelegates()
         {
             _fieldValidatorDel = new FieldValidatorDel(ValidField);
+            _emailExistsDel = new EmailExistsDel(_register.EmailExists);
 
             _requiredValidDel = CommonFieldValidationFunctions.RequiredValidDel;
             _stringLengthValidDel = CommonFieldValidationFunctions.StringLengthValidDel;
@@ -63,6 +71,7 @@ namespace ClubMembershipApplication.FieldValidators
                 case FieldConstants.UserRegistrationField.EmailAddress:
                     fieldInvalidMesage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : string.Empty;
                     fieldInvalidMesage = (fieldInvalidMesage == string.Empty && !_patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Email_Address_RegEx_Pattern)) ? $"You must enter a valid email address{Environment.NewLine}" : fieldInvalidMesage;
+                    fieldInvalidMesage = (fieldInvalidMesage == string.Empty && !_emailExistsDel(fieldValue)) ? $"The provided email address already exists{Environment.NewLine}" : fieldInvalidMesage;
                     break;
                 case FieldConstants.UserRegistrationField.FirstName:
                     fieldInvalidMesage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : string.Empty;
