@@ -22,6 +22,7 @@ namespace ClubMembershipApplication.Views
 
         public void RunView()
         {
+            CommonOutputText.WriteMainHeading();
             CommonOutputText.WriteRegistrationHeading();
 
             _fieldValidator.FieldArray[(int)FieldConstants.UserRegistrationField.EmailAddress] = GetInputFromUser(FieldConstants.UserRegistrationField.EmailAddress, "Please enter your email address");
@@ -46,7 +47,7 @@ namespace ClubMembershipApplication.Views
             Console.WriteLine("You have successfully registered. Please press any key to login");
             CommonOutputFormat.ChangeFontColor(CommonOutputFormat.FontTheme.Default);
             
-            Console.ReadLine();
+            Console.ReadKey();
         }
 
         private string GetInputFromUser(FieldConstants.UserRegistrationField field, string promptText)
