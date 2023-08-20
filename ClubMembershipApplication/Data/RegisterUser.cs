@@ -16,7 +16,7 @@ namespace ClubMembershipApplication.Data
 
             using (var dbContext = new ClubMembershipDbContext())
             {
-                emailExists = dbContext.Users.Any(u => u.EmailAddress.ToLower().Trim() == emailAddress.ToLower())
+                emailExists = dbContext.Users.Any(u => u.EmailAddress.ToLower().Trim() == emailAddress.ToLower());
             }
 
             return emailExists;
