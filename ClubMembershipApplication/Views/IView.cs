@@ -11,6 +11,6 @@ namespace ClubMembershipApplication.Views
     {
         void RunView();
 
-        IFieldValidator FieldValidator { get; set; }
+        IFieldValidator FieldValidator { get; }
     }
 }
