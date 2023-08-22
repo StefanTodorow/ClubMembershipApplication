@@ -71,7 +71,7 @@ namespace ClubMembershipApplication.FieldValidators
                 case FieldConstants.UserRegistrationField.EmailAddress:
                     fieldInvalidMesage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : string.Empty;
                     fieldInvalidMesage = (fieldInvalidMesage == string.Empty && !_patternMatchValidDel(fieldValue, CommonRegularExpressionValidationPatterns.Email_Address_RegEx_Pattern)) ? $"You must enter a valid email address{Environment.NewLine}" : fieldInvalidMesage;
-                    fieldInvalidMesage = (fieldInvalidMesage == string.Empty && !_emailExistsDel(fieldValue)) ? $"The provided email address already exists{Environment.NewLine}" : fieldInvalidMesage;
+                    fieldInvalidMesage = (fieldInvalidMesage == string.Empty && _emailExistsDel(fieldValue)) ? $"The provided email address already exists{Environment.NewLine}" : fieldInvalidMesage;
                     break;
                 case FieldConstants.UserRegistrationField.FirstName:
                     fieldInvalidMesage = (!_requiredValidDel(fieldValue)) ? $"You must enter a value for field: {Enum.GetName(typeof(FieldConstants.UserRegistrationField), userRegistrationField)}{Environment.NewLine}" : string.Empty;
