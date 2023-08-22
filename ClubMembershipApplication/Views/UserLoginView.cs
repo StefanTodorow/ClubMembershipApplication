@@ -33,7 +33,8 @@ namespace ClubMembershipApplication.Views
 
             if (user != null)
             {
-                //TODO: Run Welcome View
+                var welcomeUserView = new WelcomeUserView(user);
+                welcomeUserView.RunView();
             }
             else
             {
